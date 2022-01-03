@@ -20,7 +20,7 @@ class ShopifyAuth with ShopifyError {
 
   static Map<String, ShopifyUser> _shopifyUser = {};
 
-  @deprecated
+
   static const String _shopifyKey = 'FLUTTER_SIMPLE_SHOPIFY_ACCESS_TOKEN';
 
   static Map<String, String> _currentCustomerAccessToken = {};
