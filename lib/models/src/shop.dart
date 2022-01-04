@@ -1,27 +1,28 @@
 class Shop {
-  final String description;
-  final String moneyFormat;
-  final String name;
-  final PaymentSettings paymentSettings;
-  final PrimaryDomain primaryDomain;
-  final PrivacyPolicy privacyPolicy;
-  final RefundPolicy refundPolicy;
-  final List<String> shipsToCountries;
-  final TermsOfService termsOfService;
+  final String? description;
+  final String? moneyFormat;
+  final String? name;
+  final PaymentSettings? paymentSettings;
+  final PrimaryDomain? primaryDomain;
+  final PrivacyPolicy? privacyPolicy;
+  final RefundPolicy? refundPolicy;
+  final List<String>? shipsToCountries;
+  final TermsOfService? termsOfService;
 
   Shop({this.description, this.moneyFormat, this.name, this.paymentSettings, this.primaryDomain, this.privacyPolicy, this.refundPolicy, this.shipsToCountries, this.termsOfService});
 
-  static Shop fromJson(Map<String, dynamic> json){
+  static Shop fromJson(Map<String, dynamic>? json){
+    final shop = json?['shop'] ?? const {};
     return Shop(
-      description: (json['shop'] ?? const {})['description'],
-      moneyFormat: (json['shop'] ?? const {})['moneyFormat'],
-      name: (json['shop'] ?? const {})['name'],
-      paymentSettings: PaymentSettings.fromJson((json['shop'] ?? const {})['paymentSettings'] ?? const {}),
-      primaryDomain: PrimaryDomain.fromJson((json['shop'] ?? const {})['primaryDomain'] ?? const {}),
-      privacyPolicy: PrivacyPolicy.fromJson((json['shop'] ?? const {})['privacyPolicy'] ?? const {}),
-      refundPolicy: RefundPolicy.fromJson((json['shop'] ?? const {})['refundPolicy'] ?? const {}),
-      shipsToCountries: _getShipsToCountryList(json['shop'] ?? const {} ),
-      termsOfService: TermsOfService.fromJson((json['shop'] ?? const {})['termsOfService'] ?? const {}),
+      description: shop['description'],
+      moneyFormat: shop['moneyFormat'],
+      name: shop['name'],
+      paymentSettings: PaymentSettings.fromJson(shop['paymentSettings'] ?? const {}),
+      primaryDomain: PrimaryDomain.fromJson(shop['primaryDomain'] ?? const {}),
+      privacyPolicy: PrivacyPolicy.fromJson(shop['privacyPolicy'] ?? const {}),
+      refundPolicy: RefundPolicy.fromJson(shop['refundPolicy'] ?? const {}),
+      shipsToCountries: _getShipsToCountryList(shop),
+      termsOfService: TermsOfService.fromJson(shop['termsOfService'] ?? const {}),
     );
   }
 
@@ -33,13 +34,13 @@ class Shop {
 }
 
 class PaymentSettings {
-  final List<String> acceptedCardBrands;
-  final String cardVaultUrl;
-  final String countryCode;
-  final String currencyCode;
-  final List<String> enabledPresentmentCurrencies;
-  final String shopifyPaymentAccountId;
-  final List<String> supportedDigitalWallets;
+  final List<String>? acceptedCardBrands;
+  final String? cardVaultUrl;
+  final String? countryCode;
+  final String? currencyCode;
+  final List<String>? enabledPresentmentCurrencies;
+  final String? shopifyPaymentAccountId;
+  final List<String>? supportedDigitalWallets;
 
   PaymentSettings(
       {this.acceptedCardBrands, this.cardVaultUrl, this.countryCode, this.currencyCode, this.enabledPresentmentCurrencies, this.shopifyPaymentAccountId, this.supportedDigitalWallets});
@@ -76,9 +77,9 @@ class PaymentSettings {
 }
 
 class PrimaryDomain {
-  final String host;
-  final bool sslEnabled;
-  final String url;
+  final String? host;
+  final bool? sslEnabled;
+  final String? url;
 
   PrimaryDomain({this.host, this.sslEnabled, this.url});
 
@@ -92,11 +93,11 @@ class PrimaryDomain {
 }
 
 class PrivacyPolicy {
-  final String body;
-  final String handle;
-  final String id;
-  final String title;
-  final String url;
+  final String? body;
+  final String? handle;
+  final String? id;
+  final String? title;
+  final String? url;
 
   PrivacyPolicy({this.body, this.handle, this.id, this.title, this.url});
 
@@ -112,11 +113,11 @@ class PrivacyPolicy {
 }
 
 class RefundPolicy {
-  final String body;
-  final String handle;
-  final String id;
-  final String title;
-  final String url;
+  final String? body;
+  final String? handle;
+  final String? id;
+  final String? title;
+  final String? url;
 
   RefundPolicy({this.body, this.handle, this.id, this.title, this.url});
 
@@ -132,11 +133,11 @@ class RefundPolicy {
 }
 
 class TermsOfService {
-  final String body;
-  final String handle;
-  final String id;
-  final String title;
-  final String url;
+  final String? body;
+  final String? handle;
+  final String? id;
+  final String? title;
+  final String? url;
 
   TermsOfService({this.body, this.handle, this.id, this.title, this.url});
 

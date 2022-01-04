@@ -52,19 +52,19 @@ class ShopifyCustomer with ShopifyError{
       errorKey: 'customerUserErrors',
     );
     if(deleteThisPartOfCache) {
-      _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+      _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
     }
   }
 
   /// Updates the customer to which [customerAccessToken] belongs to.
   Future<void> customerUpdate(
-      {String email,
-        String firstName,
-        String lastName,
-        String password,
-        String phoneNumber,
-        String customerAccessToken,
-        bool acceptsMarketing,
+      {String? email,
+        String? firstName,
+        String? lastName,
+        String? password,
+        String? phoneNumber,
+        String? customerAccessToken,
+        bool? acceptsMarketing,
         bool deleteThisPartOfCache = false}) async {
     Map<String, dynamic> variableMap = {};
     ({
@@ -86,23 +86,23 @@ class ShopifyCustomer with ShopifyError{
       errorKey: 'customerUserErrors',
     );
     if(deleteThisPartOfCache) {
-      _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+      _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
     }
   }
 
   /// Creates a address for the customer to which [customerAccessToken] belongs to.
   Future<void> customerAddressCreate(
-      {String address1,
-        String address2,
-        String company,
-        String city,
-        String country,
-        String firstName,
-        String lastName,
-        String phone,
-        String province,
-        String zip,
-        String customerAccessToken,
+      {String? address1,
+        String? address2,
+        String? company,
+        String? city,
+        String? country,
+        String? firstName,
+        String? lastName,
+        String? phone,
+        String? province,
+        String? zip,
+        String? customerAccessToken,
   bool deleteThisPartOfCache = false}) async {
     final MutationOptions _options = MutationOptions(
         document: gql(customerAddressCreateMutation),
@@ -126,7 +126,7 @@ class ShopifyCustomer with ShopifyError{
       errorKey: 'customerUserErrors',
     );
     if(deleteThisPartOfCache) {
-      _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+      _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
     }
   }
 
@@ -134,7 +134,7 @@ class ShopifyCustomer with ShopifyError{
   ///
   /// A Customer may have more than 1 address, so the addresses have Id's.
   Future<void> customerAddressDelete(
-      {String customerAccessToken, String addressId, bool deleteThisPartOfCache = false}) async {
+      {String? customerAccessToken, String? addressId, bool deleteThisPartOfCache = false}) async {
     final MutationOptions _options = MutationOptions(
         document: gql(customerAddressDeleteMutation),
         variables: {
@@ -148,7 +148,7 @@ class ShopifyCustomer with ShopifyError{
       errorKey: 'customerUserErrors',
     );
     if(deleteThisPartOfCache) {
-      _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+      _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
     }
   }
 }

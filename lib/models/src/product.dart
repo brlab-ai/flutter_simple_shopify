@@ -2,9 +2,9 @@ import 'package:intl/intl.dart';
 
 class Products {
   final List<Product> productList;
-  final bool hasNextPage;
+  final bool? hasNextPage;
 
-  Products({this.productList, this.hasNextPage});
+  Products({this.productList = const [], this.hasNextPage});
 
   static Products fromJson(Map<String, dynamic> json) {
     return Products(
@@ -14,32 +14,31 @@ class Products {
 
   static List<Product> _getProductList(Map<String, dynamic> json) {
     return (json['edges'] as List)
-            ?.map((e) => Product.fromJson(e ?? const {}))
-            ?.toList() ??
-        const <Product>[];
+            .map((e) => Product.fromJson(e ?? const {}))
+            .toList();
   }
 }
 
 class Product {
-  final List<AssociatedCollections> collectionList;
-  final String title;
-  final String id;
-  final bool availableForSale;
-  final String createdAt;
-  final String description;
-  final List<ProductVariant> productVariants;
-  final String descriptionHtml;
-  final String handle;
-  final String onlineStoreUrl;
-  final String productType;
-  final String publishedAt;
-  final List<String> tags;
-  final String updatedAt;
-  final String cursor;
-  final List<ShopifyImage> images;
-  final List<Option> option;
-  final String vendor;
-  final List<Metafield> metafields;
+  final List<AssociatedCollections>? collectionList;
+  final String? title;
+  final String? id;
+  final bool? availableForSale;
+  final String? createdAt;
+  final String? description;
+  final List<ProductVariant>? productVariants;
+  final String? descriptionHtml;
+  final String? handle;
+  final String? onlineStoreUrl;
+  final String? productType;
+  final String? publishedAt;
+  final List<String>? tags;
+  final String? updatedAt;
+  final String? cursor;
+  final List<ShopifyImage>? images;
+  final List<Option>? option;
+  final String? vendor;
+  final List<Metafield>? metafields;
 
   const Product(
       {this.collectionList,
@@ -62,35 +61,34 @@ class Product {
         this.vendor,
         this.metafields});
 
-  static Product fromJson(Map<String, dynamic> json) {
+  static Product fromJson(Map<String, dynamic>? json) {
     return Product(
-        collectionList: _getCollectionList(json),
-        id: (json['node'] ?? const {})['id'],
-        title: (json['node'] ?? const {})['title'],
-        availableForSale: (json['node'] ?? const {})['availableForSale'],
-        createdAt: (json['node'] ?? const {})['createdAt'],
-        description: (json['node'] ?? const {})['description'],
-        productVariants: _getProductVariants(json ?? const {}),
-        descriptionHtml: (json['node'] ?? const {})['descriptionHtml'],
-        handle: (json['node'] ?? const {})['handle'],
-        onlineStoreUrl: (json['node'] ?? const {})['onlineStoreUrl'],
-        productType: (json['node'] ?? const {})['productType'],
-        publishedAt: (json['node'] ?? const {})['publishedAt'],
-        tags: _getTags(json ?? const {}),
-        updatedAt: (json['node'] ?? const {})['updatedAt'],
-        images: _getImageList((json['node'] ?? const {})['images'] ?? const {}),
-        cursor: json['cursor'],
-        option: _getOptionList((json['node'] ?? const {})),
-        vendor: (json['node'] ?? const {})['vendor'],
-        metafields: _getMetafieldList((json['node'] ?? const {})['metafields'] ?? const {}));
+        collectionList: _getCollectionList(json??{}),
+        id: (json?['node'] ?? const {})['id'],
+        title: (json?['node'] ?? const {})['title'],
+        availableForSale: (json?['node'] ?? const {})['availableForSale'],
+        createdAt: (json?['node'] ?? const {})['createdAt'],
+        description: (json?['node'] ?? const {})['description'],
+        productVariants: _getProductVariants(json??{}),
+        descriptionHtml: (json?['node'] ?? const {})['descriptionHtml'],
+        handle: (json?['node'] ?? const {})['handle'],
+        onlineStoreUrl: (json?['node'] ?? const {})['onlineStoreUrl'],
+        productType: (json?['node'] ?? const {})['productType'],
+        publishedAt: (json?['node'] ?? const {})['publishedAt'],
+        tags: _getTags(json??{}),
+        updatedAt: (json?['node'] ?? const {})['updatedAt'],
+        images: _getImageList((json?['node'] ?? const {})['images'] ?? const {}),
+        cursor: json?['cursor'],
+        option: _getOptionList((json?['node'] ?? const {})),
+        vendor: (json?['node'] ?? const {})['vendor'],
+        metafields: _getMetafieldList((json?['node'] ?? const {})['metafields'] ?? const {}));
   }
 
-  static List _getProductVariants(Map<String, dynamic> json) {
+  static List<ProductVariant> _getProductVariants(Map<String, dynamic> json) {
     return (((json['node'] ?? const {})['variants'] ?? const {})['edges']
                 as List)
-            ?.map((v) => ProductVariant.fromJson(v ?? const {}))
-            ?.toList() ??
-        const <ProductVariant>[];
+            .map((v) => ProductVariant.fromJson(v ?? const {}))
+            .toList();
   }
 
 
@@ -110,35 +108,34 @@ class Product {
   }
 
   static List<AssociatedCollections> _getCollectionList(
-      Map<String, dynamic> json) {
-    return (((json['node'] ?? const {})['collections'] ?? const {})['edges']
+      Map<String, dynamic>? json) {
+    return (((json?['node'] ?? const {})['collections'] ?? const {})['edges']
                 as List)
-            ?.map((v) => AssociatedCollections.fromJson(v ?? const {}))
-            ?.toList() ??
-        const <AssociatedCollections>[];
+            .map((v) => AssociatedCollections.fromJson(v ?? const {}))
+            .toList();
   }
 
-  static _getImageList(Map<String, dynamic> json) {
+  static _getImageList(Map<String, dynamic>? json) {
     List<ShopifyImage> imageList = [];
     if (json != null && json['edges'] != null)
     json['edges'].forEach((image) => imageList.add(ShopifyImage.fromJson(image['node'] ?? const {})));
     return imageList;
   }
 
-  static _getMetafieldList(Map<String, dynamic> json) {
+  static _getMetafieldList(Map<String, dynamic>? json) {
     List<Metafield> metafieldList = [];
-    json['edges']?.forEach((metafield) => metafieldList.add(Metafield.fromJson(metafield ?? const {})));
+    json?['edges']?.forEach((metafield) => metafieldList.add(Metafield.fromJson(metafield ?? const {})));
     return metafieldList;
   }
 }
 
 class AssociatedCollections {
-  final String description;
-  final String descriptionHtml;
-  final String id;
-  final String handle;
-  final String updatedAt;
-  final String title;
+  final String? description;
+  final String? descriptionHtml;
+  final String? id;
+  final String? handle;
+  final String? updatedAt;
+  final String? title;
 
   AssociatedCollections(
       {this.description,
@@ -160,9 +157,9 @@ class AssociatedCollections {
 }
 
 class ShopifyImage {
-  final String altText;
-  final String originalSource;
-  final String id;
+  final String? altText;
+  final String? originalSource;
+  final String? id;
 
   const ShopifyImage({this.altText, this.originalSource, this.id});
 
@@ -175,20 +172,20 @@ class ShopifyImage {
 }
 
 class ProductVariant {
-  final PriceV2 price;
-  final String title;
-  final ShopifyImage image;
-  final PriceV2 compareAtPrice;
-  final double weight;
-  final String weightUnit;
-  final bool availableForSale;
-  final String sku;
-  final bool requiresShipping;
-  final String id;
-  final int quantityAvailable;
-  final PriceV2 unitPrice;
-  final UnitPriceMeasurement unitPriceMeasurement;
-  final List<SelectedOption> selectedOptions;
+  final PriceV2? price;
+  final String? title;
+  final ShopifyImage? image;
+  final PriceV2? compareAtPrice;
+  final double? weight;
+  final String? weightUnit;
+  final bool? availableForSale;
+  final String? sku;
+  final bool? requiresShipping;
+  final String? id;
+  final int? quantityAvailable;
+  final PriceV2? unitPrice;
+  final UnitPriceMeasurement? unitPriceMeasurement;
+  final List<SelectedOption>? selectedOptions;
 
   const ProductVariant(
       {this.price,
@@ -241,12 +238,12 @@ class ProductVariant {
 }
 
 class Metafield {
-  final String id;
-  final String namespace;
-  final String key;
-  final String value;
-  final String valueType;
-  final String description;
+  final String? id;
+  final String? namespace;
+  final String? key;
+  final String? value;
+  final String? valueType;
+  final String? description;
 
   const Metafield(
       {this.id,
@@ -268,9 +265,9 @@ class Metafield {
 }
 
 class Option {
-  final String id;
-  final String name;
-  final List<String> values;
+  final String? id;
+  final String? name;
+  final List<String>? values;
 
   Option({this.id, this.name, this.values});
 
@@ -290,8 +287,8 @@ class Option {
 }
 
 class SelectedOption {
-  final String name;
-  final String value;
+  final String? name;
+  final String? value;
 
   SelectedOption({this.name, this.value});
 
@@ -304,11 +301,11 @@ class SelectedOption {
 }
 
 class PriceV2 {
-  static NumberFormat priceFormat;
-  final double amount;
-  final String currencyCode;
-  final String currencySymbol;
-  final String formattedPrice;
+  static NumberFormat? priceFormat;
+  final double? amount;
+  final String? currencyCode;
+  final String? currencySymbol;
+  final String? formattedPrice;
 
   const PriceV2({this.formattedPrice, this.currencySymbol, this.amount, this.currencyCode});
 
@@ -326,7 +323,7 @@ class PriceV2 {
 
   static String _chooseRightOrderOnCurrencySymbol(
     Map<String, dynamic> json, {
-    NumberFormat priceFormat,
+    NumberFormat? priceFormat,
   }) {
     String currencyString;
     String formattedPrice = priceFormat?.format(
@@ -521,11 +518,11 @@ class PriceV2 {
 }
 
 class UnitPriceMeasurement {
-  final String measuredType;
-  final String quantityUnit;
-  final double quantityValue;
-  final String referenceUnit;
-  final int referenceValue;
+  final String? measuredType;
+  final String? quantityUnit;
+  final double? quantityValue;
+  final String? referenceUnit;
+  final int? referenceValue;
 
   UnitPriceMeasurement({
     this.measuredType,

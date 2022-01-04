@@ -3,14 +3,15 @@ import 'package:graphql/client.dart';
 mixin ShopifyError {
   /// throws a [OperationException] if the operation was wrong
   /// throws a [ShopifyException] if shopify reports an error
-  void checkForError(QueryResult queryResult, {String key, String errorKey}) {
-    if (queryResult.hasException)
-      throw queryResult.exception;
+  void checkForError(QueryResult queryResult, {String? key, String? errorKey}) {
+    if (queryResult.hasException) {
+      throw queryResult.exception!;
+    }
     if (key != null && errorKey != null) {
-      Map<String, Object> data = queryResult?.data;
-      Map<String, Object> content = data[key];
+      Map<String, dynamic>? data = queryResult.data;
+      Map<String, dynamic>? content = data != null ? data[key] : null;
       if (content == null) return;
-      List errors = content[errorKey];
+      List? errors = content[errorKey];
       if (errors != null && errors.isNotEmpty) {
         errors.forEach((error) => print(error));
         throw ShopifyException(key, errorKey, errors: errors);
@@ -30,7 +31,7 @@ class ShopifyException implements Exception {
 
   /// The list of errors, might contains items out of stock or other item-related
   /// errors
-  final List<dynamic> errors;
+  final List<dynamic>? errors;
 
   const ShopifyException(this.key, this.errorKey, {this.errors});
 

@@ -1,33 +1,35 @@
+import 'dart:developer';
 import 'package:flutter_simple_shopify/models/src/checkout.dart';
 import 'package:flutter_simple_shopify/models/src/product.dart';
 
 class ShopifyUser {
 
-  final Addresses address;
-  final String createdAt;
-  final String displayName;
-  final String email;
-  final String firstName;
-  final String id;
-  final String lastName;
-  final String phone;
-  final List<String> tags;
-  final LastIncompleteCheckout lastIncompleteCheckout;
+  final Addresses? address;
+  final String? createdAt;
+  final String? displayName;
+  final String? email;
+  final String? firstName;
+  final String? id;
+  final String? lastName;
+  final String? phone;
+  final List<String>? tags;
+  final LastIncompleteCheckout? lastIncompleteCheckout;
 
   ShopifyUser({this.address, this.createdAt, this.displayName, this.email, this.firstName, this.id, this.lastName, this.phone, this.tags, this.lastIncompleteCheckout});
 
-  static ShopifyUser fromJson(Map<String, dynamic> json) {
+  static ShopifyUser fromJson(Map<String, dynamic>? json) {
+    log('$json');
     return ShopifyUser(
-      address: Addresses.fromJson(json['addresses'] ?? const {}),
-      createdAt: json['createdAt'],
-      displayName: json['displayName'],
-      email: json['email'],
-      firstName: json['firstName'],
-      id: json['id'],
-      lastName: json['lastName'],
-      phone: json['phone'],
-      tags: _getTagList(json ?? const []),
-      lastIncompleteCheckout: LastIncompleteCheckout.fromJson(json['lastIncompleteCheckout'] ?? const {}),
+      address: Addresses.fromJson(json?['addresses'] ?? const {}),
+      createdAt: json?['createdAt'],
+      displayName: json?['displayName'],
+      email: json?['email'],
+      firstName: json?['firstName'],
+      id: json?['id'],
+      lastName: json?['lastName'],
+      phone: json?['phone'],
+      tags: _getTagList(json ?? const {}),
+      lastIncompleteCheckout: LastIncompleteCheckout.fromJson(json?['lastIncompleteCheckout'] ?? const {}),
     );
   }
 
@@ -40,7 +42,7 @@ class ShopifyUser {
 }
 
 class Addresses{
-  final List<Address> addressList;
+  final List<Address>? addressList;
 
   Addresses({this.addressList});
 
@@ -61,23 +63,23 @@ class Addresses{
 
 class Address {
 
-  final String id;
-  final String address1;
-  final String address2;
-  final String city;
-  final String company;
-  final String country;
-  final String countryCode;
-  final String firstName;
-  final String lastName;
-  final String formattedArea;
-  final String latitude;
-  final String longitude;
-  final String name;
-  final String phone;
-  final String province;
-  final String provinceCode;
-  final String zip;
+  final String? id;
+  final String? address1;
+  final String? address2;
+  final String? city;
+  final String? company;
+  final String? country;
+  final String? countryCode;
+  final String? firstName;
+  final String? lastName;
+  final String? formattedArea;
+  final String? latitude;
+  final String? longitude;
+  final String? name;
+  final String? phone;
+  final String? province;
+  final String? provinceCode;
+  final String? zip;
 
   Address({this.id, this.address1, this.address2, this.city, this.company, this.country, this.countryCode, this.firstName, this.lastName, this.formattedArea, this.latitude, this.longitude, this.name, this.phone, this.province, this.provinceCode, this.zip});
 
@@ -134,15 +136,15 @@ class Address {
 
 class LastIncompleteCheckout {
 
-  final String completedAt;
-  final String createdAt;
-  final String email;
-  final String id;
-  final String currencyCode;
-  final String webUrl;
-  final PriceV2 totalPriceV2;
-  final PriceV2 lineItemsSubtotalPrice;
-  final LineItems lineItems;
+  final String? completedAt;
+  final String? createdAt;
+  final String? email;
+  final String? id;
+  final String? currencyCode;
+  final String? webUrl;
+  final PriceV2? totalPriceV2;
+  final PriceV2? lineItemsSubtotalPrice;
+  final LineItems? lineItems;
 
   LastIncompleteCheckout({this.completedAt, this.createdAt, this.email, this.id, this.currencyCode, this.webUrl, this.totalPriceV2, this.lineItemsSubtotalPrice, this.lineItems});
 

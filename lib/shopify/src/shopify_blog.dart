@@ -19,7 +19,7 @@ class ShopifyBlog with ShopifyError{
   /// Returns a List of [Blog].
   ///
   /// Returns All [Blog] of the Shop.
-  Future<List<Blog>> getAllBlogs({bool deleteThisPartOfCache = false, SortKeyBlog sortKeyBlog = SortKeyBlog.HANDLE,
+  Future<List<Blog>?> getAllBlogs({bool deleteThisPartOfCache = false, SortKeyBlog sortKeyBlog = SortKeyBlog.HANDLE,
     bool reverseBlogs = false, bool reverseArticles = false }) async {
     final WatchQueryOptions _options = WatchQueryOptions(
       document: gql(getAllBlogsQuery),
@@ -32,9 +32,9 @@ class ShopifyBlog with ShopifyError{
     final QueryResult result = await _graphQLClient.query(_options);
     checkForError(result);
     if(deleteThisPartOfCache) {
-      _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+      _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
     }
-    return (Blogs.fromJson((result?.data ??
+    return (Blogs.fromJson((result.data ??
         const {})["blogs"] ??
         const {}))
         .blogList;
@@ -55,10 +55,10 @@ class ShopifyBlog with ShopifyError{
         });
     final QueryResult result = await _graphQLClient.query(_options);
     checkForError(result);
-    var response = result?.data['blogByHandle'];
+    var response = result.data?['blogByHandle'];
     var newResponse = {'node': response};
     if(deleteThisPartOfCache) {
-      _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+      _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
     }
     return Blog.fromJson(newResponse);
   }
@@ -66,7 +66,7 @@ class ShopifyBlog with ShopifyError{
   /// Returns a List of [Article].
   ///
   /// Returns a the first [articleAmount] of [Article] sorted by [sortKeyArticle].
-  Future<List<Article>> getXArticlesSorted(
+  Future<List<Article>?> getXArticlesSorted(
       int articleAmount, {SortKeyArticle sortKeyArticle = SortKeyArticle.RELEVANCE, bool deleteThisPartOfCache = false}) async {
     final QueryOptions _options = WatchQueryOptions(
         document: gql(getNArticlesSortedQuery),
@@ -77,9 +77,9 @@ class ShopifyBlog with ShopifyError{
     final QueryResult result = await _graphQLClient.query(_options);
     checkForError(result);
     if(deleteThisPartOfCache) {
-      _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+      _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
     }
-    return (Articles.fromJson(((result?.data ??
+    return (Articles.fromJson(((result.data ??
         const {}))['articles'] ??
         const {}))
         .articleList;

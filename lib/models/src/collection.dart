@@ -2,13 +2,13 @@ import 'package:flutter_simple_shopify/models/src/product.dart';
 
 class Collections {
   final List<Collection> collectionList;
-  final bool hasNextPage;
+  final bool? hasNextPage;
 
-  Collections({this.collectionList, this.hasNextPage});
+  Collections({this.collectionList = const [], this.hasNextPage});
 
   static Collections fromJson(Map<String, dynamic> json) {
     return Collections(
-        collectionList: _getCollectionList(json ?? const {}),
+        collectionList: _getCollectionList(json/* ?? const {}*/),
         hasNextPage: (json['pageInfo'] ?? const {})['hasNextPage']);
   }
 
@@ -21,15 +21,15 @@ class Collections {
 }
 
 class Collection {
-  final String title;
-  final String description;
-  final String descriptionHtml;
-  final String handle;
-  final String id;
-  final String updatedAt;
-  final ShopifyImage image;
-  final Products products;
-  final String cursor;
+  final String? title;
+  final String? description;
+  final String? descriptionHtml;
+  final String? handle;
+  final String? id;
+  final String? updatedAt;
+  final ShopifyImage? image;
+  final Products? products;
+  final String? cursor;
 
   Collection(
       {this.title,
@@ -42,19 +42,20 @@ class Collection {
       this.products,
       this.cursor});
 
-  static Collection fromJson(Map<String, dynamic> json) {
+  static Collection fromJson(Map<String, dynamic>? json) {
+    final node = json?['node']??const {};
     return Collection(
-      title: (json['node'] ?? const {})['title'],
-      description: (json['node'] ?? const {})['description'],
-      descriptionHtml: (json['node'] ?? const {})['descriptionHtml'],
-      handle: (json['node'] ?? const {})['handle'],
-      id: (json['node'] ?? const {})['id'],
-      updatedAt: (json['node'] ?? const {})['updatedAt'],
+      title: (node)['title'],
+      description: (node)['description'],
+      descriptionHtml: (node)['descriptionHtml'],
+      handle: (node)['handle'],
+      id: (node)['id'],
+      updatedAt: (node)['updatedAt'],
       image: ShopifyImage.fromJson(
-          (json['node'] ?? const {})['image'] ?? const {}),
+          (node)['image'] ?? const {}),
       products:
-          Products.fromJson((json['node'] ?? const {})['products'] ?? const {}),
-      cursor: json['cursor'],
+          Products.fromJson((node)['products'] ?? const {}),
+      cursor: json?['cursor'],
     );
   }
 }

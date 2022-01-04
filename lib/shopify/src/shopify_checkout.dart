@@ -38,7 +38,7 @@ class ShopifyCheckout with ShopifyError{
       'id': checkoutId,
     });
     QueryResult result = await _graphQLClient.query(_optionsRequireShipping);
-    print(result?.data);
+    print(result.data);
     final WatchQueryOptions _options =
     WatchQueryOptions(document: gql(_requiresShipping(result) == true ? getCheckoutInfo : getCheckoutInfoWithoutShipping), variables: {
       'id': checkoutId,
@@ -46,22 +46,22 @@ class ShopifyCheckout with ShopifyError{
     final QueryResult _queryResult = (await _graphQLClient.query(_options));
     checkForError(_queryResult);
     if(deleteThisPartOfCache) {
-      _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+      _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
     }
     return Checkout.fromJson(
-        _queryResult?.data['node']);
+        _queryResult.data?['node']);
   }
 
   bool _requiresShipping(QueryResult result){
-    return ((result?.data ?? const {})['node'] ?? const {})['requiresShipping'];
+    return ((result.data ?? const {})['node'] ?? const {})['requiresShipping'];
   }
 
   /// Updates the attributes of a [Checkout]
   Future<void> updateAttributes(
     String checkoutId, {
-    bool allowPartialAddresses,
-    Map<String, String> customAttributes,
-    String note,
+    bool? allowPartialAddresses,
+    Map<String, String>? customAttributes,
+    String? note,
     bool deleteThisPartOfCache = false,
   }) async {
     final MutationOptions _options = MutationOptions(
@@ -90,14 +90,14 @@ class ShopifyCheckout with ShopifyError{
       errorKey: 'checkoutUserErrors',
     );
     if (deleteThisPartOfCache) {
-      _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+      _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
     }
   }
 
   /// Returns all [Order] in a List of Orders.
   ///
   /// Returns a List of Orders from the Customer with the [customerAccessToken].
-  Future<List<Order>> getAllOrders(String customerAccessToken,
+  Future<List<Order>?> getAllOrders(String customerAccessToken,
       { SortKeyOrder sortKey = SortKeyOrder.PROCESSED_AT, bool reverse = true, bool deleteThisPartOfCache = false}) async {
       final QueryOptions _options = WatchQueryOptions(
           document: gql(getAllOrdersQuery),
@@ -109,9 +109,9 @@ class ShopifyCheckout with ShopifyError{
       );
       final QueryResult result = await ShopifyConfig.graphQLClient.query(_options);
       checkForError(result);
-      Orders orders = Orders.fromJson(((((result?.data ?? const {}))['customer'] ?? const {})['orders'] ?? const {}));
+      Orders orders = Orders.fromJson(((((result.data ?? const {}))['customer'] ?? const {})['orders'] ?? const {}));
       if(deleteThisPartOfCache) {
-        _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+        _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
       }
     return orders.orderList;
   }
@@ -134,7 +134,7 @@ class ShopifyCheckout with ShopifyError{
       errorKey: 'userErrors',
     );
     if(deleteThisPartOfCache) {
-      _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+      _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
     }
   }
 
@@ -157,7 +157,7 @@ class ShopifyCheckout with ShopifyError{
       errorKey: 'checkoutUserErrors',
     );
     if(deleteThisPartOfCache) {
-      _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+      _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
     }
   }
 
@@ -190,7 +190,7 @@ class ShopifyCheckout with ShopifyError{
       errorKey: 'checkoutUserErrors',
     );
     if(deleteThisPartOfCache) {
-      _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+      _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
     }
   }
 
@@ -206,7 +206,7 @@ class ShopifyCheckout with ShopifyError{
       errorKey: 'checkoutUserErrors',
     );
     if(deleteThisPartOfCache) {
-      _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+      _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
     }
   }
 
@@ -223,7 +223,7 @@ class ShopifyCheckout with ShopifyError{
       errorKey: 'checkoutUserErrors',
     );
     if(deleteThisPartOfCache) {
-      _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+      _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
     }
   }
 
@@ -239,7 +239,7 @@ class ShopifyCheckout with ShopifyError{
       errorKey: 'checkoutUserErrors',
     );
     if(deleteThisPartOfCache) {
-      _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+      _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
     }
   }
 
@@ -256,7 +256,7 @@ class ShopifyCheckout with ShopifyError{
       errorKey: 'checkoutUserErrors',
     );
     if(deleteThisPartOfCache) {
-      _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+      _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
     }
   }
 
@@ -270,9 +270,9 @@ class ShopifyCheckout with ShopifyError{
     final QueryResult result = await _graphQLClient.mutate(_options);
     checkForError(result);
     if(deleteThisPartOfCache) {
-      _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+      _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
     }
-    return ((result?.data['checkoutCreate'] ??
+    return ((result.data?['checkoutCreate'] ??
         const {})['checkout'] ??
         const {})['id'];
 
@@ -294,7 +294,7 @@ class ShopifyCheckout with ShopifyError{
       errorKey: 'checkoutUserErrors',
     );
     if(deleteThisPartOfCache) {
-      _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+      _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
     }
   }
 
@@ -313,7 +313,7 @@ class ShopifyCheckout with ShopifyError{
     );
 
     if (deleteThisPartOfCache) {
-      _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+      _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
     }
   }
 }

@@ -1,11 +1,11 @@
 import 'package:flutter_simple_shopify/models/src/product.dart';
 
 class Articles {
-  final List<Article> articleList;
+  final List<Article>? articleList;
 
   Articles({this.articleList});
 
-  static Articles fromJson(Map<String, dynamic> json){
+  static Articles fromJson(Map<String, dynamic>? json){
     return Articles(
         articleList: _getArticleList(json ?? const {})
     );
@@ -19,19 +19,19 @@ class Articles {
 }
 
 class Article {
-  final AuthorV2 author;
-  final List<Comment> commentList;
-  final String content;
-  final String contentHtml;
-  final String excerpt;
-  final String excerptHtml;
-  final String handle;
-  final String id;
-  final ShopifyImage image;
-  final String publishedAt;
-  final List<String> tags;
-  final String title;
-  final String url;
+  final AuthorV2? author;
+  final List<Comment>? commentList;
+  final String? content;
+  final String? contentHtml;
+  final String? excerpt;
+  final String? excerptHtml;
+  final String? handle;
+  final String? id;
+  final ShopifyImage? image;
+  final String? publishedAt;
+  final List<String>? tags;
+  final String? title;
+  final String? url;
 
   Article({this.author, this.commentList, this.content, this.contentHtml, this.excerpt, this.excerptHtml, this.handle, this.id, this.image, this.publishedAt, this.tags, this.title, this.url});
 
@@ -47,7 +47,7 @@ class Article {
       id: (json['node'] ?? const {})['id'],
       image: ShopifyImage.fromJson((json['node'] ?? const {})['image'] ?? const {}),
       publishedAt: (json['node'] ?? const {})['publishedAt'],
-      tags: _getTagsList(json ?? const {}),
+      tags: _getTagsList(json/* ?? const {}*/),
       title: (json['node'] ?? const {})['title'],
       url: (json['node'] ?? const {})['url'],
     );
@@ -67,11 +67,11 @@ class Article {
 }
 
 class Comment {
-  final String email;
-  final String name;
-  final String content;
-  final String contentHtml;
-  final String id;
+  final String? email;
+  final String? name;
+  final String? content;
+  final String? contentHtml;
+  final String? id;
 
   Comment({this.email, this.name, this.content, this.contentHtml, this.id});
 
@@ -87,11 +87,11 @@ class Comment {
 }
 
 class AuthorV2 {
-  final String bio;
-  final String email;
-  final String firstName;
-  final String lastName;
-  final String name;
+  final String? bio;
+  final String? email;
+  final String? firstName;
+  final String? lastName;
+  final String? name;
 
   AuthorV2({this.bio, this.email, this.firstName, this.lastName, this.name});
 

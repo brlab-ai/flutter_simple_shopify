@@ -2,27 +2,27 @@ import 'package:flutter_simple_shopify/models/src/order.dart';
 import 'package:flutter_simple_shopify/models/src/product.dart';
 
 class Checkout{
-  final String id;
-  final String email;
-  final List<AppliedGiftCards> appliedGiftcards;
-  final AvailableShippingRates availableShippingrates;
-  final ShippingRates shippingLine;
-  final MailingAddress shippingAddress;
-  final String completedAt;
-  final String createdAt;
-  final String currencyCode;
-  final LineItems lineItems;
-  final String note;
-  final String webUrl;
-  final String updatedAt;
-  final PriceV2 totalTaxV2;
-  final PriceV2 totalPriceV2;
-  final bool taxesIncluded;
-  final bool taxExempt;
-  final PriceV2 subtotalPriceV2;
-  final String orderStatusUrl;
-  final bool requiresShipping;
-  final Order order;
+  final String? id;
+  final String? email;
+  final List<AppliedGiftCards>? appliedGiftcards;
+  final AvailableShippingRates? availableShippingrates;
+  final ShippingRates? shippingLine;
+  final MailingAddress? shippingAddress;
+  final String? completedAt;
+  final String? createdAt;
+  final String? currencyCode;
+  final LineItems? lineItems;
+  final String? note;
+  final String? webUrl;
+  final String? updatedAt;
+  final PriceV2? totalTaxV2;
+  final PriceV2? totalPriceV2;
+  final bool? taxesIncluded;
+  final bool? taxExempt;
+  final PriceV2? subtotalPriceV2;
+  final String? orderStatusUrl;
+  final bool? requiresShipping;
+  final Order? order;
 
   Checkout({this.id, this.email, this.appliedGiftcards,
     this.availableShippingrates, this.shippingLine,this.shippingAddress, this.completedAt, this.createdAt,
@@ -35,7 +35,7 @@ class Checkout{
     return Checkout(
         id: json['id'],
         email: json['email'],
-        appliedGiftcards: _getAppliedGiftCards(json ?? const {}),
+        appliedGiftcards: _getAppliedGiftCards(json/* ?? const {}*/),
         availableShippingrates: AvailableShippingRates.fromJson(json['availableShippingRates'] ?? const {}),
         shippingLine: ShippingRates.fromJson(json['shippingLine'] ?? const {}),
         shippingAddress: MailingAddress.fromJson(json['shippingAddress'] ?? const {}),
@@ -70,8 +70,8 @@ class Checkout{
 
 
 class AvailableShippingRates {
-  final bool ready;
-  final List<ShippingRates> shippingRates;
+  final bool? ready;
+  final List<ShippingRates>? shippingRates;
 
 
   const AvailableShippingRates({this.ready, this.shippingRates});
@@ -79,7 +79,7 @@ class AvailableShippingRates {
   static AvailableShippingRates fromJson(Map<String, dynamic> json){
     return AvailableShippingRates(
       ready: json['ready'],
-      shippingRates: _getShippingRates(json ?? const {}),
+      shippingRates: _getShippingRates(json/* ?? const {}*/),
     );
   }
   static List<ShippingRates> _getShippingRates(Map<String, dynamic> json) {
@@ -93,9 +93,9 @@ class AvailableShippingRates {
 
 
 class ShippingRates {
-  final String handle;
-  final String title;
-  final PriceV2 priceV2;
+  final String? handle;
+  final String? title;
+  final PriceV2? priceV2;
 
   ShippingRates({this.handle, this.title, this.priceV2});
 
@@ -108,23 +108,23 @@ class ShippingRates {
   }
 }
 class MailingAddress {
-  final String address1;
-  final String address2;
-  final String city;
-  final String company;
-  final String country;
-  final String countryCodeV2;
-  final String firstName;
-  final String formattedArea;
-  final String id;
-  final String lastName;
-  final double latitude;
-  final double longitude;
-  final String name;
-  final String phone;
-  final String province;
-  final String provinceCode;
-  final String zip;
+  final String? address1;
+  final String? address2;
+  final String? city;
+  final String? company;
+  final String? country;
+  final String? countryCodeV2;
+  final String? firstName;
+  final String? formattedArea;
+  final String? id;
+  final String? lastName;
+  final double? latitude;
+  final double? longitude;
+  final String? name;
+  final String? phone;
+  final String? province;
+  final String? provinceCode;
+  final String? zip;
 
   MailingAddress({this.address1, this.address2, this.city,this.company, this.country, this.countryCodeV2,this.firstName, this.formattedArea, this.id,this.lastName, this.latitude, this.longitude, this.name, this.phone, this.province, this.provinceCode, this.zip});
 
@@ -151,7 +151,7 @@ class MailingAddress {
   }
 }
 class LineItems{
-  final List<LineItem> lineItemList;
+  final List<LineItem>? lineItemList;
 
   LineItems({this.lineItemList});
 
@@ -168,10 +168,10 @@ class LineItems{
 }
 
 class LineItem {
-  final String id;
-  final int quantity;
-  final String title;
-  final ProductVariantCheckout variant;
+  final String? id;
+  final int? quantity;
+  final String? title;
+  final ProductVariantCheckout? variant;
 
   LineItem({this.id, this.quantity, this.variant, this.title});
 
@@ -186,16 +186,16 @@ class LineItem {
 }
 
 class ProductVariantCheckout {
-  final PriceV2 price;
-  final String title;
-  final ShopifyImage image;
-  final PriceV2 compareAtPrice;
-  final double weight;
-  final String weightUnit;
-  final bool availableForSale;
-  final String sku;
-  final bool requiresShipping;
-  final String id;
+  final PriceV2? price;
+  final String? title;
+  final ShopifyImage? image;
+  final PriceV2? compareAtPrice;
+  final double? weight;
+  final String? weightUnit;
+  final bool? availableForSale;
+  final String? sku;
+  final bool? requiresShipping;
+  final String? id;
 
   const ProductVariantCheckout(
       {this.price,
@@ -229,9 +229,9 @@ class ProductVariantCheckout {
 
 class AppliedGiftCards {
 
-  final PriceV2 amountUsedV2;
-  final PriceV2 balanceV2;
-  final String id;
+  final PriceV2? amountUsedV2;
+  final PriceV2? balanceV2;
+  final String? id;
 
   AppliedGiftCards({this.amountUsedV2, this.balanceV2, this.id});
 

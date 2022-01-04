@@ -17,11 +17,11 @@ class ShopifyPage with ShopifyError {
   /// Returns a List of [Page].
   ///
   /// Returns All [Page] of the Shop.
-  Future<List<Page>> getAllPages({
+  Future<List<Page>?> getAllPages({
     bool deleteThisPartOfCache = false,
     SortKeyPage sortKeyPage = SortKeyPage.ID,
     bool reversePages = false,
-    String pagesQuery,
+    String? pagesQuery,
   }) async {
     final WatchQueryOptions _options = WatchQueryOptions(
       document: gql(getAllPagesQuery),
@@ -34,9 +34,9 @@ class ShopifyPage with ShopifyError {
     final QueryResult result = await _graphQLClient.query(_options);
     checkForError(result);
     if (deleteThisPartOfCache) {
-      _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+      _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
     }
-    return (Pages.fromJson((result?.data ?? const {})["pages"] ?? const {}))
+    return (Pages.fromJson((result.data ?? const {})["pages"] ?? const {}))
         .pageList;
   }
 
@@ -55,10 +55,10 @@ class ShopifyPage with ShopifyError {
     );
     final QueryResult result = await _graphQLClient.query(_options);
     checkForError(result);
-    var response = result?.data['pageByHandle'];
+    var response = result.data?['pageByHandle'];
     var newResponse = {'node': response};
     if (deleteThisPartOfCache) {
-      _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+      _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
     }
     return Page.fromJson(newResponse);
   }

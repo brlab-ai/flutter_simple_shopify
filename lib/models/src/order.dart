@@ -4,14 +4,14 @@ import 'checkout.dart';
 
 
 class Orders {
-  final List<Order> orderList;
-  final bool hasNextPage;
+  final List<Order>? orderList;
+  final bool? hasNextPage;
 
   Orders({this.orderList, this.hasNextPage});
 
   static Orders fromJson(Map<String, dynamic> json){
     return Orders(
-        orderList: _getOrderList(json ?? const {}),
+        orderList: _getOrderList(json /*?? const {}*/),
         hasNextPage: (json['pageInfo'] ?? const {})['hasNextPage']
     );
   }
@@ -25,23 +25,23 @@ class Orders {
 }
 
 class Order {
-  final String id;
-  final String email;
-  final String currencyCode;
-  final String customerUrl;
-  final LineItemsOrder lineItems;
-  final String name;
-  final int orderNumber;
-  final String phone;
-  final String processedAt;
-  final ShippingAddress shippingAddress;
-  final String statusUrl;
-  final PriceV2 subtotalPriceV2;
-  final PriceV2 totalPriceV2;
-  final PriceV2 totalRefundedV2;
-  final PriceV2 totalShippingPriceV2;
-  final PriceV2 totalTaxV2;
-  final String cursor;
+  final String? id;
+  final String? email;
+  final String? currencyCode;
+  final String? customerUrl;
+  final LineItemsOrder? lineItems;
+  final String? name;
+  final int? orderNumber;
+  final String? phone;
+  final String? processedAt;
+  final ShippingAddress? shippingAddress;
+  final String? statusUrl;
+  final PriceV2? subtotalPriceV2;
+  final PriceV2? totalPriceV2;
+  final PriceV2? totalRefundedV2;
+  final PriceV2? totalShippingPriceV2;
+  final PriceV2? totalTaxV2;
+  final String? cursor;
 
   Order({this.id, this.email, this.currencyCode, this.customerUrl, this.lineItems, this.name, this.orderNumber, this.phone, this.processedAt, this.shippingAddress, this.statusUrl, this.subtotalPriceV2, this.totalPriceV2, this.totalRefundedV2, this.totalShippingPriceV2, this.totalTaxV2, this.cursor});
 
@@ -69,7 +69,7 @@ class Order {
 }
 
 class LineItemsOrder {
-  final List<LineItemOrder> lineItemOrderList;
+  final List<LineItemOrder>? lineItemOrderList;
 
   LineItemsOrder({this.lineItemOrderList});
 
@@ -88,13 +88,13 @@ class LineItemsOrder {
 }
 
 class LineItemOrder {
-  final int currentQuantity;
-  final List<DiscountAllocations> discountAllocations;
-  final PriceV2 discountedTotalPrice;
-  final PriceV2 originalTotalPrice;
-  final int quantity;
-  final String title;
-  final ProductVariantCheckout variant;
+  final int? currentQuantity;
+  final List<DiscountAllocations>? discountAllocations;
+  final PriceV2? discountedTotalPrice;
+  final PriceV2? originalTotalPrice;
+  final int? quantity;
+  final String? title;
+  final ProductVariantCheckout? variant;
 
   LineItemOrder({this.currentQuantity, this.discountAllocations, this.discountedTotalPrice, this.originalTotalPrice, this.quantity, this.title, this.variant});
 
@@ -119,7 +119,7 @@ class LineItemOrder {
 }
 
 class DiscountAllocations {
-  final PriceV2 allocatedAmount;
+  final PriceV2? allocatedAmount;
 
   DiscountAllocations({this.allocatedAmount});
 
@@ -131,22 +131,22 @@ class DiscountAllocations {
 }
 
 class ShippingAddress {
-  final String address1;
-  final String address2;
-  final String city;
-  final String company;
-  final String country;
-  final String countryCodeV2;
-  final String firstName;
-  final String id;
-  final String lastName;
-  final double latitude;
-  final double longitude;
-  final String name;
-  final String phone;
-  final String province;
-  final String provinceCode;
-  final String zip;
+  final String? address1;
+  final String? address2;
+  final String? city;
+  final String? company;
+  final String? country;
+  final String? countryCodeV2;
+  final String? firstName;
+  final String? id;
+  final String? lastName;
+  final double? latitude;
+  final double? longitude;
+  final String? name;
+  final String? phone;
+  final String? province;
+  final String? provinceCode;
+  final String? zip;
 
   ShippingAddress({this.address1, this.address2, this.city, this.company, this.country, this.countryCodeV2, this.firstName, this.id, this.lastName, this.latitude, this.longitude, this.name, this.phone, this.province, this.provinceCode, this.zip});
 

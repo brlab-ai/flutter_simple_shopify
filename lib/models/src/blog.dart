@@ -5,11 +5,11 @@ class Blogs {
 
   Blogs({this.blogList});
 
-  final List<Blog> blogList;
+  final List<Blog>? blogList;
 
   static Blogs fromJson(Map<String, dynamic> json){
     return Blogs(
-        blogList: _getBlogList(json ?? const {})
+        blogList: _getBlogList(json/* ?? const {}*/)
     );
   }
 
@@ -22,11 +22,11 @@ class Blogs {
 
 class Blog {
 
-  final String id;
-  final String handle;
-  final String title;
-  final String url;
-  final Articles articles;
+  final String? id;
+  final String? handle;
+  final String? title;
+  final String? url;
+  final Articles? articles;
 
   Blog({this.id, this.handle, this.title, this.url, this.articles});
 
